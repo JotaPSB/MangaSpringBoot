@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<body>
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Author</th>
+    <th>NumChapters</th>
+</tr></br>
+</thead>
+<tbody>
+<tr th:each="man : ${listManga}">
+    <td th:text="${man.id}">id</td>
+    <td th:text="${man.name}">One Piece</td>
+    <td th:text="${man.author}">Oda</td>
+    <td th:text="${man.numCaps}">1008</td>
+
+    <form action="#"  th:action="@{update/{mangaID}(mangaID = ${man.getId()})}" th:object="${man}"  method="post">
+        <input type="submit" value="Update"/>
+    </form>
+    <form action="#"  th:action="@{delete/{mangaID}(mangaID = ${man.getId()})}" th:object="${man}"  method="post">
+        <input  type="submit"  value="Remove"/>
+    </form>
+    </br>
+</tr>
+</tbody>
+</table>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
