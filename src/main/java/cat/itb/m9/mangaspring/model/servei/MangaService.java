@@ -42,4 +42,13 @@ public class MangaService {
         repositoryManga.findAll().iterator().forEachRemaining(listado::add);
         return listado;
     }
+    public boolean mangaAlreadyExists(String name){
+        for (Manga m: list()
+             ) {
+            if(name.equals(m.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

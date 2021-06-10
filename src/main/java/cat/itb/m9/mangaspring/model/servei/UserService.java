@@ -4,6 +4,7 @@ import cat.itb.m9.mangaspring.model.entitat.Manga;
 import cat.itb.m9.mangaspring.model.entitat.UserManga;
 import cat.itb.m9.mangaspring.model.repositori.RepositoryUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class UserService {
     private RepositoryUser repositoryUser;
 
     public void afegir(UserManga e) {
+
         e.setPassword(passwordEncoder(e.getPassword()));
         repositoryUser.save(e);
     }
@@ -39,6 +41,22 @@ public class UserService {
 
     public UserManga consultaPerId(String s) {
         return  repositoryUser.findById(s).orElse(null);
+    }
+
+    public boolean userExists(String username){
+        for (UserManga u: list()
+             ) {
+            if(u.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean passwordLength(String s){
+        if(s.length()>=8){
+            return true;
+        }
+        return false;
     }
 
 

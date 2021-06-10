@@ -5,7 +5,11 @@ import cat.itb.m9.mangaspring.model.servei.MangaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class ControladorManga {
@@ -26,6 +30,15 @@ public class ControladorManga {
     @PostMapping("/manga/new/submit")
 
     public String afegirSubmit(@ModelAttribute("mangaForm") Manga m){
+
+//        if(service.mangaAlreadyExists(m.getName())){
+//            result.addError(new FieldError("mangaForm", "name", "That manga already exists"));
+//        }
+//
+//        if (result.hasErrors()){
+//            return "/manga/new";
+//        }
+
         service.add(m);
         return "redirect:/manga/list";
     }
